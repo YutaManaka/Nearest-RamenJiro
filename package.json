@@ -1,0 +1,15 @@
+{
+  "name": "200328-GCP-Qiita-demo",
+  "version": "1.0.0",
+  "description": "Qiita に投稿した「Google Maps API で『食べログ ラーメン 百名店 WEST 2019』に選ばれたラーメン屋さんを現在位置から近い順にマッピングするアプリケーションの作成：序」のサンプルコード",
+  "main": "main.js",
+  "scripts": {
+    "serve": "browser-sync start --server --https"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
