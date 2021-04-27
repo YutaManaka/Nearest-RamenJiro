@@ -1,3 +1,24 @@
+/*
+// Google Maps APIのAPIキーを公開せずにGitHubにpushするため
+  // APIキーを読み出す
+const myApiKey = gmapapi.API_KEY;
+
+  // テンプレート文字列を用いて、urlにAPIキーを代入
+const url = `https://maps.googleapis.com/maps/api/js?key=${myApiKey}&amp;callback=initMap`;
+
+  // script要素をdocument.createElement('script')で作成
+const script = document.createElement('script');
+
+  // setAttributeメソッドで、src属性にurlをセットし、async属性とdefer属性をtrueにセット
+script.setAttribute('src', url);
+script.setAttribute('async', true);
+script.setAttribute('defer', true);
+
+  // 生成したscript要素をappendChildメソッドでHTMLのbody要素の最後に追加
+document.head.appendChild(script);
+*/
+
+// 現在地の取得
 const getCurrentPosition = () => {
   if ('geolocation' in navigator) {
     return new Promise((resolve, reject) => {
@@ -97,5 +118,5 @@ const initMap = async () => {
     const marker = new google.maps.Marker(options);
   });
 };
-
-google.maps.event.addDomListener(window, 'load', initMap);
+// スクリプトを実行する
+  google.maps.event.addDomListener(window, 'load', initMap);
