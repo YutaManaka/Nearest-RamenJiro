@@ -6,4 +6,5 @@
 - gitコマンドを実行したら「xcrun: error: invalid active developer path」というエラーが出た時の対処法https://qiita.com/kooohei/items/6aada548eeb785dd2c91
 - GitHubのissue機能を使う方法https://colorfree-map.com/git-issue-myself
 
-aaa
+### GoogleMap API
+- 【JavaScript】Google Maps APIのAPIキーを公開せずにGitHubにpushする方法https://kniuip.com/javascript-apikey/
