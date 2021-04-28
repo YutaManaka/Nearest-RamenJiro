@@ -8,3 +8,5 @@
 
 ### GoogleMap API
 - 【JavaScript】Google Maps APIのAPIキーを公開せずにGitHubにpushする方法https://kniuip.com/javascript-apikey/
+- Googleマップに色々なマーカーを描画する方法https://maps.multisoup.co.jp/blog/1881/
+- Symbols (Vector-Based Icons) https://developers.google.com/maps/documentation/javascript/symbols

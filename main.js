@@ -111,6 +111,14 @@ const initMap = async () => {
   ramenData.map(({ latLng }, i) => {
     const label = (i + 1).toString();
     const options = {
+      icon: {
+        fillColor: "#F7E503",                //塗り潰し色
+		    fillOpacity: 0.8,                    //塗り潰し透過率
+		    path: google.maps.SymbolPath.CIRCLE, //円を指定
+		    scale: 16,                           //円のサイズ
+		    strokeColor: "#ED200E",              //枠の色
+		    strokeWeight: 3.0                    //枠の太さ
+      },
       position: latLng,
       label,
       map
