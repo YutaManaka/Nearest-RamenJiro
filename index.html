@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  #map {
-    height: 80%;
-  }
+  
   html, body {
     height: 100%;
     margin: 0;
@@ -14,14 +12,27 @@
     font-family: sans-serif;
   }
 
-  header { 
+  header {
     text-align: center;
     height: 60px;
     line-height: 60px;
     background-color: #F7E503;
     font-size: x-large;
-    font-weight: bolder;
-    
+    font-weight: bolder; 
+  }
+
+  #map {
+    height: 90%;
+  }
+
+  div.detail {
+    font-weight: bolder; 
+    font-size: large;
+  }
+
+  #info_div {
+    height: 10%;
+    background-color: #F7E503;
   }
 
 /* テーブル関連 */
@@ -34,7 +45,7 @@
 <body>
   <header>一番近い二郎はどこだ？</header>
   <div id="map"></div>
-  <div id ="maintable"></div>
+  <div id="info_div"></div>
 
 </body>
 </html>
