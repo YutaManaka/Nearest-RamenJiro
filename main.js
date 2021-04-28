@@ -121,10 +121,64 @@ const initMap = async () => {
       },
       position: latLng,
       label,
-      map
+      map,
+      name: ramenData[i].name,
+      address: ramenData[i].address,
+      open: ramenData[i].open,
+      close: ramenData[i].close
     };
     const marker = new google.maps.Marker(options);
+// 編集中
+    // 情報ウインドウの生成とクリックイベント関数の登録処理
+    setMarkerListener(marker, ramenData[i].name, ramenData[i].address, ramenData[i].open,ramenData[i].close);
+
   });
+
+// 情報ウインドウの生成とクリックイベント関数の登録処理
+function setMarkerListener(marker, name, address, open, close) {
+  // 情報ウィンドウの生成
+  const infoWindow = new google.maps.InfoWindow({
+      content: '<div class="detail">'+name+'<br>'
+               +'住所：'+address+'<br>'
+               +'営業時間：'+open+'<br>'
+               +'定休日：'+close+'<br>'
+               +'</div>',
+      maxWidth: 500
+  });
+  // マーカーのクリックイベントの関数登録
+  marker.addListener('click', () => {
+      // 情報ウィンドウの表示
+      infoWindow.open(map, marker);
+  });
+}
+
+
+// 編集終わり
 };
+
+
+
 // スクリプトを実行する
   google.maps.event.addDomListener(window, 'load', initMap);
+
+
+/*セーブ
+    // 情報ウインドウの生成とクリックイベント関数の登録処理
+    setMarkerListener(marker, ramenData[i].name);
+
+  });
+
+// 情報ウインドウの生成とクリックイベント関数の登録処理
+function setMarkerListener(marker, name) {
+  // 情報ウィンドウの生成
+  var infoWindow = new google.maps.InfoWindow({
+      content: name,
+      maxWidth: 500
+  });
+  // マーカーのクリックイベントの関数登録
+  google.maps.event.addListener(marker, 'click', function(event) {
+      // 情報ウィンドウの表示
+      infoWindow.open(map, marker);
+  });
+}
+*/

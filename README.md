@@ -10,3 +10,5 @@
 - 【JavaScript】Google Maps APIのAPIキーを公開せずにGitHubにpushする方法https://kniuip.com/javascript-apikey/
 - Googleマップに色々なマーカーを描画する方法https://maps.multisoup.co.jp/blog/1881/
 - Symbols (Vector-Based Icons) https://developers.google.com/maps/documentation/javascript/symbols
+- 地図の上の、マーカーをクリックした時に情報ウインドウを表示http://www.mitene.or.jp/~rnk/google_map_api5.htm
+- Google Maps APIを使って複数のマーカーと吹き出しを設置してみるhttps://www.tam-tam.co.jp/tipsnote/javascript/post7755.html
