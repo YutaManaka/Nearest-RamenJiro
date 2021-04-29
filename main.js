@@ -121,6 +121,7 @@ const initMap = async () => {
       },
       position: latLng,
       label,
+      labelClass: "labels", // the CSS class for the label
       map,
       name: ramenData[i].name,
       address: ramenData[i].address,
@@ -138,11 +139,10 @@ const initMap = async () => {
 function setMarkerListener(marker, name, address, open, close) {
   // 情報ウィンドウの生成
   const infoWindow = new google.maps.InfoWindow({
-      content: '<div class="detail">'+name+'<br>'
-               +'住所：'+address+'<br>'
-               +'営業時間：'+open+'<br>'
-               +'定休日：'+close+'<br>'
-               +'</div>',
+      content: '<div class="detail_name">'+name+'</div><br>'+
+               '<div class="detail_info">'+address+'<br><br>'
+               +'【営業時間】'+open+'<br><br>'
+               +'【定休日】'+close+'<br></div>',
       maxWidth: 500
   });
   // マーカーのクリックイベントの関数登録
@@ -151,7 +151,6 @@ function setMarkerListener(marker, name, address, open, close) {
       infoWindow.open(map, marker);
   });
 }
-
 
 // 編集終わり
 };
