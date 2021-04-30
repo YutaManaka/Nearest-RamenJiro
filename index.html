@@ -10,6 +10,7 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: #333333;
   }
 
   header {
@@ -19,6 +20,15 @@
     background-color: #F7E503;
     font-size: x-large;
     font-weight: bolder; 
+  }
+  #title_red {
+    color: red;
+  }
+
+  form {
+    background-color: #333333;
+    text-align: center;
+    color: #F7E503;
   }
 
   #map {
@@ -37,29 +47,33 @@
   }
 
 
-  #info_div {
-    height: 10%;
-    background-color: #F7E503;
+  footer {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    background-color: #333333;
+    text-align: center;
+    color: #F7E503;
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
   }
 
 /* テーブル関連 */
 /* テーブル関連終わり */
 </style>
-<title>最寄りのラーメン二郎を探す</title>
+<title>一番近いラーメン二郎はどこだ？</title>
 <script src="https://maps.googleapis.com/maps/api/js?key=" defer></script>
 <script src="main.js" defer></script>
 </head>
 <body>
-  <header>一番近い二郎はどこだ？</header>
+  <header>一番近い<span id="title_red">ラーメン</span>二郎はどこだ？</header>
+  <form>営業日
+    <label><input type="checkbox" id="Weekdaybox" onclick=boxclick(this,"Weekday") /> 平日のみ</label>
+    <label><input type="checkbox" id="Satbox" onclick=boxclick(this,"Sat") /> 土曜も営業</label>
+    <label><input type="checkbox" id="Sunbox" onclick=boxclick(this,"Sun") /> 土日も営業</label>
+  </form>
   <div id="map"></div>
-  <div id="info_div"></div>
+  <footer>© 2021 Yuta Manaka</footer>
 
 </body>
 </html>
-
-/*
-上野毛店
-〒158-0093 東京都世田谷区上野毛１丁目２６−16
-【営業時間】平日11：00～14：15頃/18：00～22：00 土11：00～14：30
-【定休日】日・祝
-*/
