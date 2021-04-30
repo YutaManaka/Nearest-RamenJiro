@@ -18,7 +18,9 @@ script.setAttribute('defer', true);
 document.head.appendChild(script);
 */
 
-// 現在地の取得
+var gmarkers = [];  
+
+// 現在地の取得(getCurrentPosition)
 const getCurrentPosition = () => {
   if ('geolocation' in navigator) {
     return new Promise((resolve, reject) => {
@@ -26,7 +28,9 @@ const getCurrentPosition = () => {
     });
   }
 };
+// End of getCurrentPosition
 
+// データの取得(fetchDistanceMatrix)
 const fetchDistanceMatrix = async () => {
   // 現在位置情報の取得
   const currentPosition = await getCurrentPosition();
@@ -78,7 +82,11 @@ const fetchDistanceMatrix = async () => {
 
   return Promise.all(promises).then(values => values.flat());
 };
+// End of fetchDistanceMatrix
 
+
+
+// 地図を描画する(initMap)
 const initMap = async () => {
   const currentPosition = await getCurrentPosition();
   const ramenData = await fetch('ramen_data.json').then(response =>
@@ -126,16 +134,23 @@ const initMap = async () => {
       name: ramenData[i].name,
       address: ramenData[i].address,
       open: ramenData[i].open,
-      close: ramenData[i].close
+      close: ramenData[i].close,
+      open_info: ramenData[i].open_info
     };
     const marker = new google.maps.Marker(options);
-// 編集中
     // 情報ウインドウの生成とクリックイベント関数の登録処理
     setMarkerListener(marker, ramenData[i].name, ramenData[i].address, ramenData[i].open,ramenData[i].close);
 
+      //マーカー情報をグローバル配列に保存
+marker.myname = name;
+marker.myopen_info = ramenData[i].open_info;     
+                      
+gmarkers.push(marker);
   });
 
-// 情報ウインドウの生成とクリックイベント関数の登録処理
+ 
+
+// 情報ウインドウの生成とクリックイベント関数の登録処理(setMarkerListener)
 function setMarkerListener(marker, name, address, open, close) {
   // 情報ウィンドウの生成
   const infoWindow = new google.maps.InfoWindow({
@@ -150,34 +165,125 @@ function setMarkerListener(marker, name, address, open, close) {
       // 情報ウィンドウの表示
       infoWindow.open(map, marker);
   });
+//地図上クリックで情報ウィンドウを非表示
+google.maps.event.addListener(map, "click", function(){
+  infoWindow.close();
+});
+
+ //表示カテゴリのマーカーを表示する(show)
+ function show(open_info) {
+  for (var i = 0; i < gmarkers.length; i++) {
+    if (gmarkers[i].myopen_info == open_info) {gmarkers[i].setVisible(true);}
+  }
+  document.getElementById(open_info+"box").checked = true;
 }
+// End of show
 
-// 編集終わり
+//非表示カテゴリのマーカーを非表示にする(hide)
+function hide(open_info) {
+  for (var i = 0; i < gmarkers.length; i++) {
+    if (gmarkers[i].myopen_info == open_info) {gmarkers[i].setVisible(false);}
+  }
+  document.getElementById(open_info+"box").checked = false;
+  infoWindow.close();
+}
+// End of hide
+
+//チェックボックスのクリック処理(boxclick)
+window.boxclick = function boxclick(box,open_info) {
+  if (box.checked) { show(open_info); } else { hide(open_info); }
+}
+//End of boxclick
+
+
+  //カテゴリ毎のマーカー表示/非表示の初期設定
+show("Weekday");
+show("Sat");
+show("Sun");
+
+}
+// End of setMarkerListener
+
 };
-
+// End of initMap
 
 
 // スクリプトを実行する
   google.maps.event.addDomListener(window, 'load', initMap);
 
 
-/*セーブ
-    // 情報ウインドウの生成とクリックイベント関数の登録処理
-    setMarkerListener(marker, ramenData[i].name);
 
+
+
+/*
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
   });
 
-// 情報ウインドウの生成とクリックイベント関数の登録処理
-function setMarkerListener(marker, name) {
-  // 情報ウィンドウの生成
-  var infoWindow = new google.maps.InfoWindow({
-      content: name,
-      maxWidth: 500
+  var controlLists = document.createElement('div');
+  'ABC'.split('').forEach(function(chr){
+  
+    var markers=[
+      addMarker(chr),
+      addMarker(chr),
+      addMarker(chr),
+    ];
+    
+    var controlList = document.createElement('input');
+    controlList.type = 'checkbox';
+    controlList.addEventListener('click',function(e){
+      if (this.checked) {
+        markers.forEach(function(marker){
+          marker.setOpacity(1.0);
+        })
+      } else {
+        markers.forEach(function(marker){
+          marker.setOpacity(0.2);
+        });
+      }
+    });
+    controlLists.appendChild(controlList);
+    
   });
-  // マーカーのクリックイベントの関数登録
-  google.maps.event.addListener(marker, 'click', function(event) {
-      // 情報ウィンドウの表示
-      infoWindow.open(map, marker);
-  });
+  
+  function setControl(controlDiv, map) {
+
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to recenter the map';
+    controlDiv.appendChild(controlUI);
+
+	controlLists.style.padding = '15px';
+    controlUI.appendChild(controlLists);
+
+
+  }
+  
+  var controlDiv = document.createElement('div');
+  var control = new setControl(controlDiv, map);
+  controlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+
+  
+  function addMarker(chr){
+    return new google.maps.Marker({
+      position: {lat: -34.397 + Math.random() -.5, lng: 150.644 + Math.random() -.5},
+      label: chr,
+      opacity: 0.2,
+      map: map
+    });
+  }
+  
 }
+
 */

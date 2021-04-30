@@ -12,3 +12,5 @@
 - Symbols (Vector-Based Icons) https://developers.google.com/maps/documentation/javascript/symbols
 - 地図の上の、マーカーをクリックした時に情報ウインドウを表示http://www.mitene.or.jp/~rnk/google_map_api5.htm
 - Google Maps APIを使って複数のマーカーと吹き出しを設置してみるhttps://www.tam-tam.co.jp/tipsnote/javascript/post7755.html
+- カテゴリ毎にマーカーの表示/非表示を切り替えるhttp://kikuchisan.net/gmap/gmapv3.html
+- google maps api v3でカテゴリごとにマーカーを表示し、チェックボックスで表示・非表示を行いたいhttp://jsfiddle.net/k44z22x5/
